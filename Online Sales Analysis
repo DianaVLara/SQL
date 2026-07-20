@@ -1,6 +1,8 @@
+# For this project, I used BigQuery to perform analytics on an online sales database. 
+
 SELECT * FROM analytics-2026-503015.sql.user_events LIMIT 1000;
 
--- define sales funnel and the different stages
+#1. Define sales funnel and the different stages.
 
 WITH funnel_stages AS (
 
@@ -17,7 +19,7 @@ FROM analytics-2026-503015.sql.user_events
 
 SELECT * FROM funnel_stages;
 
--- conversion rates through the funnel
+#2. Identify the conversion rates through the funnel.
 
 WITH funnel_stages AS (
 
@@ -52,7 +54,7 @@ FROM funnel_stages;
 
 
 
--- funnel by source
+#3. Funnel purchases by source.
 
 WITH source_funnel AS (
   SELECT
@@ -77,7 +79,7 @@ ROUND (purchases * 100/ carts) AS cart_to_purchase_conversion_rate,
 FROM source_funnel
 ORDER BY purchases DESC; 
 
--- time to conversion analysis
+#4. Analyze the time to conversion. 
 
 WITH user_journey AS (
   SELECT
@@ -99,7 +101,7 @@ ROUND(AVG(TIMESTAMP_DIFF(purchase_time, view_time, MINUTE)),2) AS avg_total_jour
 
 FROM user_journey;
 
--- revenue funnel analysis
+#5. Create a funnel to analyze revenue.
 
 WITH funnel_revenue AS (
   
